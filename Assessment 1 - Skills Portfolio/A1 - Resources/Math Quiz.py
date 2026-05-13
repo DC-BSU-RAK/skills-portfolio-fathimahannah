@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import os
 from PIL import Image, ImageTk 
 
 # create a new math question based on chosen difficulty
@@ -76,7 +77,7 @@ def make_background_dynamic(frame, img_path):
     bg_label = Label(frame)
     bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
- # update background size when window is resized
+    # update background size when window is resized
     def resize_bg(event):
         img_resized = bg_img.resize((event.width, event.height))
         bg_photo = ImageTk.PhotoImage(img_resized)
@@ -96,7 +97,7 @@ root.title("Math Quiz")
 root.geometry("900x650")
 root.protocol("WM_DELETE_WINDOW", confirm_exit)
 
-IMG_PATH = "c:/Users/user/Documents/GitHub/skills-portfolio-fathimahannah/Assessment 1 - Skills Portfolio/A1 - Resources/1.jpg"
+IMG_PATH = os.path.join(os.path.dirname(__file__), "1.jpg")
 
 frame_start = Frame(root)
 frame_difficulty = Frame(root)

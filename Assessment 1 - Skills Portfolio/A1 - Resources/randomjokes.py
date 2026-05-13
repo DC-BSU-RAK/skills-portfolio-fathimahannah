@@ -1,11 +1,14 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import os
 from PIL import Image, ImageTk
+
+BASE_DIR = os.path.dirname(__file__)
 
 # Load jokes from a text file and store as (question, answer) tuples
 def fetch_jokes():
-    path = r"C:\Users\user\Documents\GitHub\skills-portfolio-fathimahannah\Assessment 1 - Skills Portfolio\A1 - Resources\randomJokes.txt"
+    path = os.path.join(BASE_DIR, "randomJokes.txt")
     out = []
     try:
         with open(path) as f:
@@ -30,7 +33,6 @@ def apply_bg(frame, img_path):
 
     frame.bind("<Configure>", resize)
 
-
 # Pick a new random joke and display question
 def new_joke():
     global current
@@ -42,13 +44,13 @@ def new_joke():
     question_lbl.config(text=current[0])
     answer_lbl.config(text="")
     reveal_btn.config(state=NORMAL)
-    quit_btn.pack_forget() 
+    quit_btn.pack_forget()
 
 # Reveal the answer/punchline of the current joke
 def show_answer():
     answer_lbl.config(text=current[1])
     reveal_btn.config(state=DISABLED)
-    quit_btn.pack(pady=15)  
+    quit_btn.pack(pady=15)
 
 # Confirm exit before closing app
 def leave():
@@ -66,11 +68,13 @@ root.geometry("800x600")
 root.protocol("WM_DELETE_WINDOW", leave)
 
 joke_data = fetch_jokes()  # Load jokes at start
-current = None 
+current = None
+
+IMG_PATH = os.path.join(BASE_DIR, "2.jpg")
 
 # Welcome screen with background
 screen1 = Frame(root)
-apply_bg(screen1, r"C:\Users\user\Documents\GitHub\skills-portfolio-fathimahannah\Assessment 1 - Skills Portfolio\A1 - Resources\2.jpg")
+apply_bg(screen1, IMG_PATH)
 screen1.pack(expand=True, fill=BOTH)
 
 Label(screen1, text="Welcome!", font=("Arial", 32), bg="white").pack(pady=170)
@@ -78,7 +82,7 @@ Button(screen1, text="Start", font=("Arial", 20), bg="#cce6ff", command=switch).
 
 # Joke screen with dynamic background
 screen2 = Frame(root)
-apply_bg(screen2, r"C:\Users\user\Documents\GitHub\skills-portfolio-fathimahannah\Assessment 1 - Skills Portfolio\A1 - Resources\2.jpg")
+apply_bg(screen2, IMG_PATH)
 
 question_lbl = Label(screen2, text="", font=("Arial", 24), wraplength=650, justify=CENTER)
 question_lbl.pack(pady=70)
